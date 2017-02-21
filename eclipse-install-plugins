@@ -9,7 +9,6 @@ M2E_REPO=http://download.eclipse.org/technology/m2e/releases
 M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
-M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
 ECLEMMA_REPO=http://update.eclemma.org/
 SONARLINT_REPO=http://eclipse.sonarlint.org/
@@ -18,6 +17,9 @@ CUCUMBER_REPO=https://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
 JBOSS_REPO=http://download.jboss.org/jbosstools/neon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.5/neon/repository
+
+# broken repos
+M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 
 INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
