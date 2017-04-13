@@ -3,7 +3,7 @@
 #sudo yum install rh-eclipse46-base
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
-ORBIT_REPO=http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/
+ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
 SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
 M2E_REPO=http://download.eclipse.org/technology/m2e/releases
 M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
@@ -24,7 +24,7 @@ M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
-com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,org.sonarlint.eclipse.jdt.feature.feature.group,\
+com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,org.jkiss.dbeaver.core.feature.feature.group,\
 org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group
 
