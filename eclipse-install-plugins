@@ -18,6 +18,7 @@ DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
 JBOSS_REPO=http://download.jboss.org/jbosstools/neon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.5/neon/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
+SPRINGIDE_REPO=http://springide.org/updatesite
 
 # broken repos
 M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
@@ -27,7 +28,8 @@ org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,org.jkiss.dbeaver.core.feature.feature.group,\
-org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group,org.moreunit.feature.group
+org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
+org.springframework.ide.eclipse.feature.feature.group
 
 INSTALLIUS_NA=com.coderplus.m2e.jaxws.feature.group
 # sapphire too old
