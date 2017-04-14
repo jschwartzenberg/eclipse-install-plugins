@@ -1,5 +1,18 @@
 #!/bin/sh
 
+ECLIPSE_FLAVOUR=$1
+ACTION=$2
+
+if [ -z "$ECLIPSE_FLAVOUR" ]; then
+  echo You need to specify which Eclipse flavour you want.
+  exit 1
+fi
+
+if [ -z "$ACTION" ]; then
+  echo 'You need to specify what action you want (list, install).'
+  exit 1
+fi
+
 #sudo yum install rh-eclipse46-base
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
@@ -17,36 +30,61 @@ CUCUMBER_REPO=https://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
 JBOSS_REPO=http://download.jboss.org/jbosstools/neon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.5/neon/repository
+LICLIPSE_REPO=http://update.liclipse.com/latest
 
 # broken repos
 M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 
-INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
+case $ECLIPSE_FLAVOUR in
+  "java")
+    REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO
+    
+    INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,org.sonarlint.eclipse.jdt.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,org.jkiss.dbeaver.core.feature.feature.group,\
 org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group
+    INSTALLIUS_NA=com.coderplus.m2e.jaxws.feature.group
+    # sapphire too old
+    INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
+    ;;
+  "liclipse")
+    REPOSITORIES=$LICLIPSE_REPO
+    INSTALLIUS=com.brainwy.liclipse.feature.feature.group
+    ;;
+esac
 
-INSTALLIUS_NA=com.coderplus.m2e.jaxws.feature.group
-# sapphire too old
-INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
+. /etc/lsb-release
+case $DISTRIB_ID in
+  "Ubuntu")
+  ;;
+  "RedHat")
+  ENVIRONMENT="scl enable rh-eclipse46"
+  ;;
+esac
 
-REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO
-
-ENVIRONMENT="scl enable rh-eclipse46"
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
 
 COMMAND_SUFFIX_INSTALL="-installIUs $INSTALLIUS"
 COMMAND_SUFFIX_LIST=-list
 
-#$ENVIRONMENT "$COMMAND $COMMAND_SUFFIX_LIST"
-$ENVIRONMENT "$COMMAND $COMMAND_SUFFIX_INSTALL"
+case $ACTION in
+  "list")
+  $ENVIRONMENT $COMMAND $COMMAND_SUFFIX_LIST
+  ;;
+  "install")
+  $ENVIRONMENT $COMMAND $COMMAND_SUFFIX_INSTALL
+  ;;
+esac
 
 # Lombok
-if [ ! -e /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar ]; then
-  sudo mkdir -p /opt/rh/rh-eclipse46/root/usr/local/lib/java
-  sudo wget https://projectlombok.org/downloads/lombok.jar -O /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar
-  sudo ln -s /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar /opt/rh/rh-eclipse46/root/lib64/eclipse/
-  echo '-javaagent:/opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar' | sudo tee -a /opt/rh/rh-eclipse46/root/etc/eclipse.ini
-fi
+lombok()
+{
+  if [ ! -e /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar ]; then
+    sudo mkdir -p /opt/rh/rh-eclipse46/root/usr/local/lib/java
+    sudo wget https://projectlombok.org/downloads/lombok.jar -O /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar
+    sudo ln -s /opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar /opt/rh/rh-eclipse46/root/lib64/eclipse/
+    echo '-javaagent:/opt/rh/rh-eclipse46/root/usr/local/lib/java/lombok.jar' | sudo tee -a /opt/rh/rh-eclipse46/root/etc/eclipse.ini
+  fi
+}
