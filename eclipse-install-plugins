@@ -58,27 +58,43 @@ org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.gro
     ;;
 esac
 
-. /etc/lsb-release
+if [ -e /etc/os-release ]; then
+  . /etc/os-release
+fi
+if [ -e /etc/lsb-release ]; then
+  . /etc/lsb-release
+fi
+
+if [ -z "$DISTRIB_ID" ]; then
+  DISTRIB_ID=$ID
+fi
+
 case $DISTRIB_ID in
   "Ubuntu")
-  ;;
-  "RedHat")
-  ENVIRONMENT="scl enable rh-eclipse46"
-  ;;
+    ;;
+  "rhel")
+    ENVIRONMENT="scl enable rh-eclipse46"
+    ;;
 esac
 
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
 
-COMMAND_SUFFIX_INSTALL="-installIUs $INSTALLIUS"
-COMMAND_SUFFIX_LIST=-list
-
 case $ACTION in
   "list")
-  $ENVIRONMENT $COMMAND $COMMAND_SUFFIX_LIST
+    ACTION=-list
   ;;
   "install")
-  $ENVIRONMENT $COMMAND $COMMAND_SUFFIX_INSTALL
+    ACTION="-installIUs $INSTALLIUS"
   ;;
+esac
+
+case $DISTRIB_ID in
+  "Ubuntu")
+    "$COMMAND $ACTION"
+    ;;
+  "rhel")
+    scl enable rh-eclipse46 "$COMMAND $ACTION"
+    ;;
 esac
 
 # Lombok
