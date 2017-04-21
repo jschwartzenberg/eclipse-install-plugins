@@ -32,6 +32,7 @@ JBOSS_REPO=http://download.jboss.org/jbosstools/neon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.5/neon/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
 SPRINGIDE_REPO=http://springide.org/updatesite
+CSVEDIT_REPO=https://raw.githubusercontent.com/SegFaultError/CsvEdit/master/csvedit.update/
 LICLIPSE_REPO=http://update.liclipse.com/latest
 
 # broken repos
@@ -39,7 +40,7 @@ M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO
+    REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO
     
     INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
@@ -47,6 +48,7 @@ com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,org.jkiss.dbeaver.core.feature.feature.group,\
 org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
+org.fhsolution.eclipse.feature.csvedit.feature.group
     INSTALLIUS_NA=com.coderplus.m2e.jaxws.feature.group
     # sapphire too old
     INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
