@@ -73,14 +73,6 @@ if [ -z "$DISTRIB_ID" ]; then
   DISTRIB_ID=$ID
 fi
 
-case $DISTRIB_ID in
-  "Ubuntu")
-    ;;
-  "rhel")
-    ENVIRONMENT="scl enable rh-eclipse46"
-    ;;
-esac
-
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
 
 case $ACTION in
