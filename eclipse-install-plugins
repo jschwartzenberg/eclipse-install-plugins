@@ -50,6 +50,8 @@ com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.core.feature.feature.group,\
+org.jkiss.dbeaver.ext.generic.feature.feature.group,\
+org.jkiss.dbeaver.runtime.feature.feature.group,\
 org.jkiss.dbeaver.ext.oracle.feature.feature.group,\
 org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
