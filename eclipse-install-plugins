@@ -34,7 +34,6 @@ fi
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
 ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
-M2E_REPO=http://download.eclipse.org/technology/m2e/releases
 M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
@@ -76,6 +75,7 @@ qwickie.feature.feature.group
 
     if [ "$DISTRIB_ID" != "fedora" ]; then
         SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
+        M2E_REPO=http://download.eclipse.org/technology/m2e/releases
         INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group
     fi
 
