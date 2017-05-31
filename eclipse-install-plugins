@@ -13,11 +13,27 @@ if [ -z "$ACTION" ]; then
   exit 1
 fi
 
+if [ -e /etc/os-release ]; then
+  . /etc/os-release
+fi
+if [ -e /etc/lsb-release ]; then
+  . /etc/lsb-release
+fi
+
+if [ -z "$DISTRIB_ID" ]; then
+  DISTRIB_ID=$ID
+fi
+
+if [ -z "$DISTRIB_ID" ]; then
+  echo "No distribution found"
+  exit 1
+fi
+
+
 #sudo yum install rh-eclipse46-base
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
 ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
-SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
 M2E_REPO=http://download.eclipse.org/technology/m2e/releases
 M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
@@ -43,8 +59,8 @@ M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 case $ECLIPSE_FLAVOUR in
   "java")
     REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO
-    
-    INSTALLIUS=org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group,\
+
+    INSTALLIUS=\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.mountainminds.eclemma.feature.feature.group,org.sonarlint.eclipse.feature.feature.group,\
@@ -57,6 +73,12 @@ org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.gro
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group
+
+    if [ "$DISTRIB_ID" != "fedora" ]; then
+        SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
+        INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group
+    fi
+
     INSTALLIUS_NA=com.coderplus.m2e.jaxws.feature.group
     # sapphire too old
     INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
@@ -67,17 +89,6 @@ qwickie.feature.feature.group
     INSTALLIUS=com.brainwy.liclipse.feature.feature.group
     ;;
 esac
-
-if [ -e /etc/os-release ]; then
-  . /etc/os-release
-fi
-if [ -e /etc/lsb-release ]; then
-  . /etc/lsb-release
-fi
-
-if [ -z "$DISTRIB_ID" ]; then
-  DISTRIB_ID=$ID
-fi
 
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
 
@@ -91,8 +102,8 @@ case $ACTION in
 esac
 
 case $DISTRIB_ID in
-  "Ubuntu")
-    "$COMMAND $ACTION"
+  "Ubuntu"|"fedora")
+    $COMMAND $ACTION
     ;;
   "rhel")
     scl enable rh-eclipse46 "$COMMAND $ACTION"
