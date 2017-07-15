@@ -29,6 +29,14 @@ if [ -z "$DISTRIB_ID" ]; then
   exit 1
 fi
 
+if [ ! `which eclipse` ]; then
+  if [ -z "$ECLIPSE_HOME" ]; then
+    echo "Please set ECLIPSE_HOME to your Eclipse installation"
+    exit 1
+  else
+    PATH=$PATH:$ECLIPSE_HOME
+  fi
+fi
 
 #sudo yum install rh-eclipse46-base
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
