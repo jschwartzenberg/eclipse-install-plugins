@@ -111,11 +111,11 @@ case $ACTION in
 esac
 
 case $DISTRIB_ID in
-  "Ubuntu"|"fedora")
-    $COMMAND $ACTION
-    ;;
   "rhel")
     scl enable rh-eclipse46 "$COMMAND $ACTION"
+    ;;
+  *)
+    $COMMAND $ACTION
     ;;
 esac
 
