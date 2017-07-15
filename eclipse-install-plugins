@@ -57,7 +57,7 @@ M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=$ORBIT_REPO,$SUBCLIPSE_REPO,$M2E_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO
+    REPOSITORIES=$ORBIT_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO
 
     INSTALLIUS=\
 org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
@@ -76,6 +76,7 @@ qwickie.feature.feature.group
     if [ "$DISTRIB_ID" != "fedora" ]; then
         SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
         M2E_REPO=http://download.eclipse.org/technology/m2e/releases
+        REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO,$M2E_REPO
         INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group
     fi
 
