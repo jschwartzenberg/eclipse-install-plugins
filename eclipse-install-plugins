@@ -42,7 +42,6 @@ fi
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
 ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
-M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
@@ -65,10 +64,10 @@ ECLEMMA_REPO=http://update.eclemma.org/
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=$ORBIT_REPO,$M2EWTP_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO
+    REPOSITORIES=$ORBIT_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO
 
     INSTALLIUS=\
-org.eclipse.m2e.wtp.feature.feature.group,de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
+de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
@@ -83,10 +82,21 @@ qwickie.feature.feature.group,\
 com.coderplus.m2e.jaxws.feature.group
 
     if [ "$DISTRIB_ID" != "fedora" ]; then
-        SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
-        M2E_REPO=http://download.eclipse.org/technology/m2e/releases
-        REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO,$M2E_REPO
-        INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group,org.tigris.subversion.subclipse.feature.group
+      SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
+      REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO
+      INSTALLIUS=$INSTALLIUS,org.tigris.subversion.subclipse.feature.group
+    fi
+
+    if [ "$DISTRIB_ID" = "rhel" ]; then
+      M2E_REPO=http://download.eclipse.org/technology/m2e/releases
+      REPOSITORIES=$REPOSITORIES,$M2E_REPO
+      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group
+    fi
+
+    if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
+      M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
+      REPOSITORIES=$REPOSITORIES,$M2EWTP_REPO
+      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.wtp.feature.feature.group
     fi
 
     INSTALLIUS_NA=com.mountainminds.eclemma.feature.feature.group
