@@ -65,13 +65,14 @@ LICLIPSE_REPO=http://update.liclipse.com/latest
 QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
 M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 NODECLIPSE_REPO=http://www.nodeclipse.org/updates/
+ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
 
 # broken repos
 ECLEMMA_REPO=http://update.eclemma.org/
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=$ORBIT_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO,$NODECLIPSE_REPO
+    REPOSITORIES=$ORBIT_REPO,$M2EAXISTOOLS_REPO,$M2EEXTRAS_REPO,$M2EJAXWS_REPO,$ECLEMMA_REPO,$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,$CUCUMBER_REPO,$M2EMAVENDEV_REPO,$DBEAVER_REPO,$JBOSS_REPO,$ORACLE_REPO,$MOREUNIT_REPO,$CSVEDIT_REPO,$DECOMPILER_REPO,$QWICKIE_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
@@ -90,7 +91,8 @@ com.coderplus.m2e.jaxws.feature.group,\
 code.google.restclient.tool.feature.feature.group,\
 net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
-zipeditor.feature.group
+zipeditor.feature.group,\
+eclipse.encoding.plugin.feature.feature.group
 
     if [ "$DISTRIB_ID" != "fedora" ]; then
       SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
