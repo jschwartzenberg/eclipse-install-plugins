@@ -24,11 +24,6 @@ if [ -z "$DISTRIB_ID" ]; then
   DISTRIB_ID=$ID
 fi
 
-if [ -z "$DISTRIB_ID" ]; then
-  echo "No distribution found"
-  exit 1
-fi
-
 if [ $DISTRIB_ID = "rhel" ]; then
   if [ -e /opt/rh/rh-eclipse46/enable ]; then
     . scl_source enable rh-eclipse46
@@ -41,7 +36,13 @@ if [ ! `which eclipse` ]; then
     exit 1
   else
     PATH=$PATH:$ECLIPSE_HOME
+    DISTRIB_ID=eclipsedownload
   fi
+fi
+
+if [ -z "$DISTRIB_ID" ]; then
+  echo "No distribution found"
+  exit 1
 fi
 
 #sudo yum install rh-eclipse46-base
