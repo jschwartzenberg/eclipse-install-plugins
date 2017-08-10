@@ -67,6 +67,7 @@ QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwic
 M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 NODECLIPSE_REPO=http://www.nodeclipse.org/updates/
 ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
+JENKINS_REPO=http://eclipse.cloudbees.com/
 
 # broken repos
 ECLEMMA_REPO=http://update.eclemma.org/
@@ -92,7 +93,8 @@ com.coderplus.m2e.jaxws.feature.group,\
 net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
-eclipse.encoding.plugin.feature.feature.group
+eclipse.encoding.plugin.feature.feature.group,\
+com.cloudbees.eclipse.feature.group
 
     if [ "$DISTRIB_ID" != "fedora" ]; then
       SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
