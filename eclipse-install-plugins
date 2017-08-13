@@ -62,13 +62,15 @@ MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
 SPRINGIDE_REPO=http://springide.org/updatesite
 CSVEDIT_REPO=https://raw.githubusercontent.com/SegFaultError/CsvEdit/master/csvedit.update/
 DECOMPILER_REPO=http://www.cpupk.com/decompiler/update
-LICLIPSE_REPO=http://update.liclipse.com/latest
 QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
 M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
 NODECLIPSE_REPO=http://www.nodeclipse.org/updates/
 ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
 JENKINS_REPO=http://eclipse.cloudbees.com/
 ECLEMMA_REPO=http://update.eclemma.org/
+
+LICLIPSE_REPO=http://www.liclipse.com/text/updates
+PYDEV_REPO=http://www.pydev.org/updates
 
 case $ECLIPSE_FLAVOUR in
   "java")
@@ -118,8 +120,8 @@ org.eclipse.eclemma.feature.feature.group
     INSTALLIUS_BREAKS_ECLIPSE=org.springframework.ide.eclipse.feature.feature.group
     ;;
   "liclipse")
-    REPOSITORIES=$LICLIPSE_REPO
-    INSTALLIUS=com.brainwy.liclipse.feature.feature.group
+    REPOSITORIES=$LICLIPSE_REPO,$PYDEV_REPO
+    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,org.python.pydev.feature.feature.group
     ;;
 esac
 
