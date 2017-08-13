@@ -37,6 +37,11 @@ if [ ! `which eclipse` ]; then
   else
     PATH=$PATH:$ECLIPSE_HOME
     DISTRIB_ID=eclipsedownload
+
+    if [ ! -e "$ECLIPSE_HOME"/eclipse ]; then
+      mkdir -p "$ECLIPSE_HOME"
+      wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-javascript-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+    fi
   fi
 fi
 
