@@ -24,6 +24,10 @@ if [ -z "$DISTRIB_ID" ]; then
   DISTRIB_ID=$ID
 fi
 
+if [ $OS = "Windows_NT" ]; then
+  DISTRIB_ID="eclipseproject"
+fi
+
 if [ $DISTRIB_ID = "rhel" ]; then
   if [ -e /opt/rh/rh-eclipse46/enable ]; then
     . scl_source enable rh-eclipse46
