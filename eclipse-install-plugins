@@ -24,7 +24,7 @@ if [ -z "$DISTRIB_ID" ]; then
   DISTRIB_ID=$ID
 fi
 
-if [ $OS = "Windows_NT" ]; then
+if [ "$OS" = "Windows_NT" ]; then
   DISTRIB_ID="eclipseproject"
 fi
 
