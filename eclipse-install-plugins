@@ -103,8 +103,9 @@ net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
-com.cloudbees.eclipse.feature.group,\
 org.eclipse.eclemma.feature.feature.group
+
+    INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
 
     if [ "$DISTRIB_ID" != "fedora" ]; then
       SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
