@@ -144,11 +144,11 @@ editorconfig-eclipse-feature.feature.group
     # sapphire too old
     INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
     INSTALLIUS_BREAKS_ECLIPSE=org.springframework.ide.eclipse.feature.feature.group
-    ;;
+  ;;
   "liclipse")
     REPOSITORIES=$LICLIPSE_REPO,$PYDEV_REPO
     INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,org.python.pydev.feature.feature.group
-    ;;
+  ;;
   "cpp")
     REPOSITORIES=$LICLIPSE_REPO,$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
     INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
