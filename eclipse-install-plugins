@@ -153,7 +153,6 @@ editorconfig-eclipse-feature.feature.group
     REPOSITORIES=$LICLIPSE_REPO,$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
     INSTALLIUS=net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
-zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 org.brainwy.liclipsetext.feature.feature.group
   ;;
