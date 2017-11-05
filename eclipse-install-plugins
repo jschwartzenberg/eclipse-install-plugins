@@ -42,7 +42,7 @@ if [ ! `which eclipse` ]; then
     PATH=$PATH:$ECLIPSE_HOME
     DISTRIB_ID=eclipsedownload
 
-    if [ ! -e "$ECLIPSE_HOME"/eclipse ] || [ ! -e "$ECLIPSE_HOME"/eclipse.exe ]; then
+    if [ ! -e "$ECLIPSE_HOME"/eclipse ] && [ ! -e "$ECLIPSE_HOME"/eclipse.exe ]; then
       mkdir -p "$ECLIPSE_HOME"
       case $ECLIPSE_FLAVOUR in
         "java")
