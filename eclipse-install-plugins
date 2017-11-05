@@ -151,10 +151,10 @@ editorconfig-eclipse-feature.feature.group
     ;;
   "cpp")
     REPOSITORIES=$LICLIPSE_REPO,$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
-    INSTALLIUS=net.sourceforge.shelled.feature.group,\
-de.bastiankrol.startexplorer.feature.feature.group,\
+    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
-org.brainwy.liclipsetext.feature.feature.group
+net.sourceforge.shelled.feature.group,\
+de.bastiankrol.startexplorer.feature.feature.group
   ;;
 esac
 
