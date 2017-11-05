@@ -44,7 +44,18 @@ if [ ! `which eclipse` ]; then
 
     if [ ! -e "$ECLIPSE_HOME"/eclipse ] || [ ! -e "$ECLIPSE_HOME"/eclipse.exe ]; then
       mkdir -p "$ECLIPSE_HOME"
-      wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-javascript-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+      case $ECLIPSE_FLAVOUR in
+        "java")
+          ECLIPSE_FLAVOUR_DOWNLOAD=java
+        ;;
+        "liclipse")
+          ECLIPSE_FLAVOUR_DOWNLOAD=javascript
+        ;;
+        "cpp")
+          ECLIPSE_FLAVOUR_DOWNLOAD=cpp
+        ;;
+      esac
+      wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
     fi
   fi
 fi
@@ -81,6 +92,8 @@ EDITORCONFIG_REPO=https://editorconfig-eclipse.github.io/repository
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
+
+DLTK_REPO=http://download.eclipse.org/technology/dltk/updates-dev/latest/
 
 case $ECLIPSE_FLAVOUR in
   "java")
@@ -136,6 +149,13 @@ editorconfig-eclipse-feature.feature.group
     REPOSITORIES=$LICLIPSE_REPO,$PYDEV_REPO
     INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,org.python.pydev.feature.feature.group
     ;;
+  "cpp")
+    REPOSITORIES=$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
+    INSTALLIUS=net.sourceforge.shelled.feature.group,\
+de.bastiankrol.startexplorer.feature.feature.group,\
+zipeditor.feature.group,\
+eclipse.encoding.plugin.feature.feature.group
+  ;;
 esac
 
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
