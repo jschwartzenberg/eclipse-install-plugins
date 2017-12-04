@@ -68,6 +68,7 @@ fi
 #sudo yum install rh-eclipse46-base
 # sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
+ECLIPSE_REPO=http://download.eclipse.org/releases/oxygen
 ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
@@ -133,7 +134,8 @@ net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
-editorconfig-eclipse-feature.feature.group
+editorconfig-eclipse-feature.feature.group,\
+org.eclipse.fx.ide.feature.feature.group
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
 
