@@ -100,7 +100,7 @@ case $ECLIPSE_FLAVOUR in
     REPOSITORIES=\
 $ORBIT_REPO,$M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
-$M2EJAXWS_REPO,$ECLEMMA_REPO,\
+$M2EJAXWS_REPO,\
 $SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,\
 $CUCUMBER_REPO,\
 $M2EMAVENDEV_REPO,\
@@ -133,7 +133,6 @@ net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
-org.eclipse.eclemma.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
@@ -152,8 +151,9 @@ editorconfig-eclipse-feature.feature.group
 
     if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
       M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
-      REPOSITORIES=$REPOSITORIES,$M2EWTP_REPO
-      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.wtp.feature.feature.group
+      REPOSITORIES=$REPOSITORIES,$M2EWTP_REPO,$ECLEMMA_REPO
+      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.wtp.feature.feature.group,\
+org.eclipse.eclemma.feature.feature.group
     fi
 
     # sapphire too old
