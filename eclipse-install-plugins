@@ -58,7 +58,13 @@ if [ ! `which eclipse` ]; then
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
         ;;
       esac
-      wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+      if [ `uname -o` = "Cygwin" ]; then
+        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
+        find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
+      else
+        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+      fi
     fi
   fi
 fi
