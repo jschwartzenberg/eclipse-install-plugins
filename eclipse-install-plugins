@@ -29,8 +29,11 @@ if [ "$OS" = "Windows_NT" ]; then
 fi
 
 if [ $DISTRIB_ID = "rhel" ]; then
-  if [ -e /opt/rh/rh-eclipse46/enable ]; then
-    . scl_source enable rh-eclipse46
+  if [ -e /opt/rh/rh-eclipse47/enable ]; then
+    . scl_source enable rh-eclipse47
+  else
+    sudo yum install rh-eclipse47
+    . scl_source enable rh-eclipse47
   fi
 fi
 
