@@ -101,7 +101,7 @@ DLTK_REPO=http://download.eclipse.org/technology/dltk/updates-dev/latest/
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=\
+    REPOSITORIES=$ECLIPSE_REPO,\
 $ORBIT_REPO,$M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
