@@ -99,6 +99,8 @@ ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
 JENKINS_REPO=http://eclipse.cloudbees.com/
 ECLEMMA_REPO=http://update.eclemma.org/
 EDITORCONFIG_REPO=https://editorconfig-eclipse.github.io/repository
+M2E_DEPENCENDY_PLUGIN_REPO=http://ianbrandt.github.io/m2e-maven-dependency-plugin/
+CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
@@ -123,11 +125,14 @@ $DECOMPILER_REPO,\
 $QWICKIE_REPO,\
 $NODECLIPSE_REPO,\
 $ENCODING_REPO,\
-$EDITORCONFIG_REPO
+$EDITORCONFIG_REPO,\
+$M2E_DEPENCENDY_PLUGIN_REPO,\
+$CHECKSTYLE_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
+com.ianbrandt.tools.m2e.mdp.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.core.feature.feature.group,\
@@ -144,7 +149,8 @@ de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
-org.eclipse.fx.ide.feature.feature.group
+org.eclipse.fx.ide.feature.feature.group,\
+net.sf.eclipsecs.feature.group
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
 
