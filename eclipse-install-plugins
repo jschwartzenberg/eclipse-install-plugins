@@ -154,10 +154,14 @@ net.sf.eclipsecs.feature.group
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
 
-    if [ "$DISTRIB_ID" != "fedora" ]; then
-      SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
-      REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO
-      INSTALLIUS=$INSTALLIUS,org.tigris.subversion.subclipse.feature.group
+    if [ ! `which svn` ]; then
+      if [ "$DISTRIB_ID" != "fedora" ]; then
+        SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
+        REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO
+        INSTALLIUS=$INSTALLIUS,org.tigris.subversion.subclipse.feature.group
+      fi
+    else
+      echo 'You do not have any svn binary in your path, so I am skipping Subclipse.'
     fi
 
     if [ "$DISTRIB_ID" = "rhel" ]; then
