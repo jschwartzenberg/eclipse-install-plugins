@@ -37,7 +37,7 @@ if [ $DISTRIB_ID = "rhel" ]; then
   fi
 fi
 
-if [ ! `which eclipse` ]; then
+if ! [ -x "$(command -v eclipse)" ]; then
   if [ -z "$ECLIPSE_HOME" ]; then
     echo "Please set ECLIPSE_HOME to your Eclipse installation"
     exit 1
@@ -158,7 +158,7 @@ org.eclipse.fx.ide.feature.feature.group
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
 
-    if [ ! `which svn` ]; then
+    if [ -x "$(command -v svn)" ]; then
       if [ "$DISTRIB_ID" != "fedora" ]; then
         SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
         REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO
