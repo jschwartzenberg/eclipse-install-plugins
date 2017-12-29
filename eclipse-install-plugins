@@ -43,13 +43,13 @@ if ! [ -x "$(command -v eclipse)" ]; then
     exit 1
   else
     PATH=$PATH:$ECLIPSE_HOME
-    DISTRIB_ID=eclipsedownload
+    DISTRIB_ID=eclipseproject
 
     if [ ! -e "$ECLIPSE_HOME"/eclipse ] && [ ! -e "$ECLIPSE_HOME"/eclipse.exe ]; then
       mkdir -p "$ECLIPSE_HOME"
       case $ECLIPSE_FLAVOUR in
         "java")
-          ECLIPSE_FLAVOUR_DOWNLOAD=java
+          ECLIPSE_FLAVOUR_DOWNLOAD=jee
         ;;
         "liclipse")
           ECLIPSE_FLAVOUR_DOWNLOAD=javascript
@@ -58,12 +58,14 @@ if ! [ -x "$(command -v eclipse)" ]; then
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
         ;;
       esac
+      VERSION=oxygen
+      RELEASE=2
       if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"$RELEASE"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
       else
-        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-oxygen-R-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"$RELEASE"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
     fi
   fi
@@ -137,7 +139,7 @@ org.jkiss.dbeaver.core.feature.feature.group,\
 org.jkiss.dbeaver.ext.generic.feature.feature.group,\
 org.jkiss.dbeaver.runtime.feature.feature.group,\
 org.jkiss.dbeaver.ext.oracle.feature.feature.group,\
-org.hibernate.eclipse.feature.feature.group,cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
+cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
@@ -148,6 +150,10 @@ zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.ide.feature.feature.group
+
+    if [ "$DISTRIB_ID" != "eclipseproject" ]; then
+      INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
+    fi
 
     # Do not install Checkstyle on RHEL, https://bugzilla.redhat.com/show_bug.cgi?id=1529771
     if [ "$DISTRIB_ID" != "rhel" ]; then
