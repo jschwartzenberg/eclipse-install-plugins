@@ -32,7 +32,7 @@ if [ $DISTRIB_ID = "rhel" ]; then
   if [ -e /opt/rh/rh-eclipse47/enable ]; then
     . scl_source enable rh-eclipse47
   else
-    sudo yum install rh-eclipse47
+    sudo yum install rh-eclipse47 rh-eclipse47-eclipse-m2e-wtp
     . scl_source enable rh-eclipse47
   fi
 fi
@@ -181,10 +181,8 @@ org.eclipse.fx.ide.feature.feature.group
     fi
 
     if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
-      M2EWTP_REPO=http://download.eclipse.org/m2e-wtp/releases/neon/
-      REPOSITORIES=$REPOSITORIES,$M2EWTP_REPO,$ECLEMMA_REPO
-      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.wtp.feature.feature.group,\
-org.eclipse.eclemma.feature.feature.group
+      REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
+      INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
     fi
 
     # sapphire too old
