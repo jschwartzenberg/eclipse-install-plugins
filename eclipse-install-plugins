@@ -152,7 +152,8 @@ zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.ide.feature.feature.group,\
-AnyEditTools.feature.group
+AnyEditTools.feature.group,\
+org.jboss.tools.cdi.feature.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
