@@ -103,6 +103,7 @@ ECLEMMA_REPO=http://update.eclemma.org/
 EDITORCONFIG_REPO=https://editorconfig-eclipse.github.io/repository
 M2E_DEPENCENDY_PLUGIN_REPO=http://ianbrandt.github.io/m2e-maven-dependency-plugin/
 ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
+JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
@@ -129,7 +130,8 @@ $NODECLIPSE_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $M2E_DEPENCENDY_PLUGIN_REPO,\
-$ANYEDIT_REPO
+$ANYEDIT_REPO,\
+$JSON_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
@@ -145,7 +147,6 @@ cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
-com.coderplus.m2e.jaxws.feature.group,\
 net.sourceforge.shelled.feature.group,\
 de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
@@ -153,7 +154,8 @@ eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.ide.feature.feature.group,\
 AnyEditTools.feature.group,\
-org.jboss.tools.cdi.feature.feature.group
+org.jboss.tools.cdi.feature.feature.group,\
+jsonedit-feature.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
