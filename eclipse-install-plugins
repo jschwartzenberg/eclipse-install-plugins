@@ -172,6 +172,9 @@ org.jenerate.feature.feature.group
         SUBCLIPSE_REPO=https://dl.bintray.com/subclipse/releases/subclipse/latest/
         REPOSITORIES=$REPOSITORIES,$SUBCLIPSE_REPO
         INSTALLIUS=$INSTALLIUS,org.tigris.subversion.subclipse.feature.group
+        if [ "$OS" = "Windows_NT" ]; then
+          INSTALLIUS=$INSTALLIUS,org.tigris.subversion.clientadapter.javahl.feature.feature.group
+        fi
       fi
     else
       echo 'You do not have any svn binary in your path, so I am skipping Subclipse.'
