@@ -103,6 +103,7 @@ M2E_DEPENCENDY_PLUGIN_REPO=http://ianbrandt.github.io/m2e-maven-dependency-plugi
 ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
 JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
+JENERATE_REPO=http://maximeaudrain.github.io/update/
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
@@ -133,7 +134,8 @@ $EDITORCONFIG_REPO,\
 $M2E_DEPENCENDY_PLUGIN_REPO,\
 $ANYEDIT_REPO,\
 $JSON_REPO,\
-$CHECKSTYLE_REPO
+$CHECKSTYLE_REPO,\
+$JENERATE_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
@@ -156,7 +158,8 @@ org.eclipse.fx.ide.feature.feature.group,\
 AnyEditTools.feature.group,\
 org.jboss.tools.cdi.feature.feature.group,\
 jsonedit-feature.feature.group,\
-net.sf.eclipsecs.feature.group
+net.sf.eclipsecs.feature.group,\
+org.jenerate.feature.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
