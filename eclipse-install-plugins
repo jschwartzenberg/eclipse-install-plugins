@@ -196,8 +196,16 @@ jsonedit-feature.feature.group
     INSTALLIUS_BREAKS_ECLIPSE=org.springframework.ide.eclipse.feature.feature.group
   ;;
   "liclipse")
-    REPOSITORIES=$LICLIPSE_REPO,$PYDEV_REPO
-    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,org.python.pydev.feature.feature.group
+    REPOSITORIES=$LICLIPSE_REPO,\
+$PYDEV_REPO,\
+$ENCODING_REPO,\
+$EDITORCONFIG_REPO,\
+$ANYEDIT_REPO
+    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
+org.python.pydev.feature.feature.group,\
+eclipse.encoding.plugin.feature.feature.group,\
+editorconfig-eclipse-feature.feature.group,\
+AnyEditTools.feature.group
   ;;
   "cpp")
     REPOSITORIES=$LICLIPSE_REPO,$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
