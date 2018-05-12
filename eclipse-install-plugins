@@ -109,6 +109,8 @@ LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
 
 DLTK_REPO=http://download.eclipse.org/technology/dltk/updates-dev/latest/
+CMAKE4E_REPO=https://raw.githubusercontent.com/15knots/cmake4eclipse/master/releng/comp-update/
+CMAKEED_REPO=https://raw.githubusercontent.com/15knots/cmakeed/master/cmakeed-update/
 
 case $ECLIPSE_FLAVOUR in
   "java")
@@ -208,11 +210,18 @@ editorconfig-eclipse-feature.feature.group,\
 AnyEditTools.feature.group
   ;;
   "cpp")
-    REPOSITORIES=$LICLIPSE_REPO,$DLTK_REPO,$NODECLIPSE_REPO,$ENCODING_REPO
+    REPOSITORIES=$LICLIPSE_REPO,\
+$DLTK_REPO,\
+$NODECLIPSE_REPO,\
+$ENCODING_REPO,\
+$CMAKE4E_REPO,\
+$CMAKEED_REPO
     INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 net.sourceforge.shelled.feature.group,\
-de.bastiankrol.startexplorer.feature.feature.group
+de.bastiankrol.startexplorer.feature.feature.group,\
+de.marw.cdt.cmake.feature.group,\
+com.cthing.cmakeed.feature.feature.group
   ;;
 esac
 
