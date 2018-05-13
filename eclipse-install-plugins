@@ -28,7 +28,7 @@ if [ "$OS" = "Windows_NT" ]; then
   DISTRIB_ID="eclipseproject"
 fi
 
-if [ $DISTRIB_ID = "rhel" ]; then
+if [ "$DISTRIB_ID" = "rhel" ]; then
   if [ -e /opt/rh/rh-eclipse47/enable ]; then
     . scl_source enable rh-eclipse47
   else
