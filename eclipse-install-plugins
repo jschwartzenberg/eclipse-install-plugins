@@ -182,12 +182,6 @@ jsonedit-feature.feature.group
       echo 'You do not have any svn binary in your path, so I am skipping Subclipse.'
     fi
 
-    if [ "$DISTRIB_ID" = "rhel" ]; then
-      M2E_REPO=http://download.eclipse.org/technology/m2e/releases
-      REPOSITORIES=$REPOSITORIES,$M2E_REPO
-      INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group
-    fi
-
     if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
       REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
       INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
