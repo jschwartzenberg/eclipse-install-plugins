@@ -29,11 +29,11 @@ if [ "$OS" = "Windows_NT" ]; then
 fi
 
 if [ "$DISTRIB_ID" = "rhel" ]; then
-  if [ -e /opt/rh/rh-eclipse47/enable ]; then
-    . scl_source enable rh-eclipse47
+  if [ -e /opt/rh/rh-eclipse48/enable ]; then
+    . scl_source enable rh-eclipse48
   else
-    sudo yum install rh-eclipse47 rh-eclipse47-eclipse-m2e-wtp
-    . scl_source enable rh-eclipse47
+    sudo yum install rh-eclipse48 rh-eclipse48-eclipse-m2e-wtp
+    . scl_source enable rh-eclipse48
   fi
 fi
 
@@ -58,14 +58,15 @@ if ! [ -x "$(command -v eclipse)" ]; then
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
         ;;
       esac
-      VERSION=oxygen
-      RELEASE=2
+      MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse//technology/epp/downloads/release
+      VERSION=2018-09
+      RELEASE=R
       if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"$RELEASE"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
       else
-        wget --output-document=- http://eclipsemirror.itemis.de/eclipse/technology/epp/downloads/release/oxygen/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"$RELEASE"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
     fi
   fi
@@ -76,11 +77,8 @@ if [ -z "$DISTRIB_ID" ]; then
   exit 1
 fi
 
-#sudo yum install rh-eclipse46-base
-# sudo yum install rh-eclipse46-eclipse-webtools-sourceediting
 
-ECLIPSE_REPO=http://download.eclipse.org/releases/oxygen
-ORBIT_REPO=http://download.eclipse.org/tools/orbit/R-builds/R20170307180635/repository
+ECLIPSE_REPO=http://download.eclipse.org/releases/2018-09
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
@@ -88,7 +86,7 @@ SONARLINT_REPO=http://eclipse.sonarlint.org/
 DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
 CUCUMBER_REPO=https://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
-JBOSS_REPO=http://download.jboss.org/jbosstools/oxygen/stable/updates/
+JBOSS_REPO=http://download.jboss.org/jbosstools/photon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.6/oxygen/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
 SPRINGIDE_REPO=http://springide.org/updatesite
@@ -104,6 +102,7 @@ EDITORCONFIG_REPO=https://editorconfig-eclipse.github.io/repository
 M2E_DEPENCENDY_PLUGIN_REPO=http://ianbrandt.github.io/m2e-maven-dependency-plugin/
 ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
 JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
+CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
@@ -115,10 +114,11 @@ CMAKEED_REPO=https://raw.githubusercontent.com/15knots/cmakeed/master/cmakeed-up
 case $ECLIPSE_FLAVOUR in
   "java")
     REPOSITORIES=$ECLIPSE_REPO,\
-$ORBIT_REPO,$M2EAXISTOOLS_REPO,\
+$M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
-$SONARLINT_REPO,$DIRECTORYSTUDIO_REPO,\
+$SONARLINT_REPO,\
+$DIRECTORYSTUDIO_REPO,\
 $CUCUMBER_REPO,\
 $M2EMAVENDEV_REPO,\
 $DBEAVER_REPO,\
@@ -128,15 +128,15 @@ $MOREUNIT_REPO,\
 $CSVEDIT_REPO,\
 $DECOMPILER_REPO,\
 $QWICKIE_REPO,\
-$NODECLIPSE_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $M2E_DEPENCENDY_PLUGIN_REPO,\
 $ANYEDIT_REPO,\
-$JSON_REPO
+$JSON_REPO,\
+$CHECKSTYLE_REPO
 
     INSTALLIUS=\
-de.theit.m2e.axistools.feature.feature.group,org.sonatype.m2e.buildhelper.feature.feature.group,\
+de.theit.m2e.axistools.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 com.ianbrandt.tools.m2e.mdp.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
@@ -149,25 +149,17 @@ cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
-net.sourceforge.shelled.feature.group,\
-de.bastiankrol.startexplorer.feature.feature.group,\
 zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.ide.feature.feature.group,\
 AnyEditTools.feature.group,\
 org.jboss.tools.cdi.feature.feature.group,\
-jsonedit-feature.feature.group
+jsonedit-feature.feature.group,\
+net.sf.eclipsecs.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
-    fi
-
-    # Do not install Checkstyle on RHEL, https://bugzilla.redhat.com/show_bug.cgi?id=1529771
-    if [ "$DISTRIB_ID" != "rhel" ]; then
-      CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
-      REPOSITORIES=$REPOSITORIES,$CHECKSTYLE_REPO
-      INSTALLIUS=$INSTALLIUS,net.sf.eclipsecs.feature.group
     fi
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
@@ -185,6 +177,9 @@ jsonedit-feature.feature.group
     if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
       REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
       INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
+    else
+      # These are packaged on RHEL and Fedora
+      INSTALLIUS=$INSTALLIUS,org.sonatype.m2e.buildhelper.feature.feature.group
     fi
 
     # sapphire too old
@@ -212,8 +207,6 @@ $CMAKE4E_REPO,\
 $CMAKEED_REPO
     INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
-net.sourceforge.shelled.feature.group,\
-de.bastiankrol.startexplorer.feature.feature.group,\
 de.marw.cdt.cmake.feature.group,\
 com.cthing.cmakeed.feature.feature.group
   ;;
