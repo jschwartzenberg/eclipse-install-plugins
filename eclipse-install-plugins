@@ -59,14 +59,14 @@ if ! [ -x "$(command -v eclipse)" ]; then
         ;;
       esac
       MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse//technology/epp/downloads/release
-      VERSION=2018-09
+      VERSION=2018-12
       RELEASE=R
       if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"${RELEASE}"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
       else
-        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"${RELEASE}"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
     fi
   fi
@@ -84,7 +84,7 @@ M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/
 M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
 SONARLINT_REPO=http://eclipse.sonarlint.org/
 DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
-CUCUMBER_REPO=https://cucumber.io/cucumber-eclipse/update-site
+CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
 JBOSS_REPO=http://download.jboss.org/jbosstools/photon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.6/oxygen/repository
