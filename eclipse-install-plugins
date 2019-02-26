@@ -29,11 +29,11 @@ if [ "$OS" = "Windows_NT" ]; then
 fi
 
 if [ "$DISTRIB_ID" = "rhel" ]; then
-  if [ -e /opt/rh/rh-eclipse48/enable ]; then
-    . scl_source enable rh-eclipse48
+  if [ -e /opt/rh/rh-eclipse/enable ]; then
+    . scl_source enable rh-eclipse
   else
-    sudo yum install rh-eclipse48 rh-eclipse48-eclipse-m2e-wtp
-    . scl_source enable rh-eclipse48
+    sudo yum install rh-eclipse
+    . scl_source enable rh-eclipse
   fi
 fi
 
