@@ -59,7 +59,7 @@ if ! [ -x "$(command -v eclipse)" ]; then
         ;;
       esac
       MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse//technology/epp/downloads/release
-      VERSION=2018-12
+      VERSION=2019-03
       RELEASE=R
       if [ `uname -o` = "Cygwin" ]; then
         wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"${RELEASE}"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
