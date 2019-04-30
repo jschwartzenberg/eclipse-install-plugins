@@ -37,6 +37,10 @@ if [ "$DISTRIB_ID" = "rhel" ]; then
   fi
 fi
 
+if [ "$DISTRIB_ID" = "fedora" ] && ! [ -x "$(command -v eclipse)" ]; then
+  sudo dnf install eclipse eclipse-egit eclipse-anyedit eclipse-subclipse eclipse-findbugs eclipse-m2e-core eclipse-checkstyle eclipse-tm-terminal eclipse-eclemma eclipse-m2e-wtp eclipse-m2e-buildhelper eclipse-m2e-maven-dependency-plugin
+fi
+
 if ! [ -x "$(command -v eclipse)" ]; then
   if [ -z "$ECLIPSE_HOME" ]; then
     echo "Please set ECLIPSE_HOME to your Eclipse installation"
@@ -131,16 +135,12 @@ $DECOMPILER_REPO,\
 $QWICKIE_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
-$M2E_DEPENCENDY_PLUGIN_REPO,\
-$ANYEDIT_REPO,\
 $JSON_REPO,\
-$CHECKSTYLE_REPO,\
 $JENERATE_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
-com.ianbrandt.tools.m2e.mdp.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.core.feature.feature.group,\
@@ -151,14 +151,11 @@ cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
-zipeditor.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.ide.feature.feature.group,\
-AnyEditTools.feature.group,\
 org.jboss.tools.cdi.feature.feature.group,\
 jsonedit-feature.feature.group,\
-net.sf.eclipsecs.feature.group,\
 org.jenerate.feature.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
@@ -180,17 +177,31 @@ org.jenerate.feature.feature.group
       echo 'You do not have any svn binary in your path, so I am skipping Subclipse.'
     fi
 
-    if [ "$DISTRIB_ID" = "rhel" ] || [ "$DISTRIB_ID" = "fedora" ]; then
-      REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
-      INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
-    else
+    if [ ! "$DISTRIB_ID" = "rhel" ] && [ ! "$DISTRIB_ID" = "fedora" ]; then
       # These are packaged on RHEL and Fedora
       INSTALLIUS=$INSTALLIUS,org.sonatype.m2e.buildhelper.feature.feature.group
     fi
 
+    if [ ! "$DISTRIB_ID" = "fedora" ]; then
+      # These are packaged on Fedora
+      REPOSITORIES=$REPOSITORIES,$ANYEDIT_REPO,\
+$CHECKSTYLE_REPO,\
+$M2E_DEPENCENDY_PLUGIN_REPO
+      INSTALLIUS=$INSTALLIUS,AnyEditTools.feature.group,\
+net.sf.eclipsecs.feature.group,\
+com.ianbrandt.tools.m2e.mdp.feature.feature.group
+    fi
+
+    if [ "$DISTRIB_ID" = "rhel" ]; then
+      # included with the distribution and with Fedora, not packaged on RHEL
+      REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
+      INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
+    fi
+
     # sapphire too old
-    INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
-    INSTALLIUS_BREAKS_ECLIPSE=org.springframework.ide.eclipse.feature.feature.group
+    #INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
+    #INSTALLIUS_BREAKS_ECLIPSE=org.springframework.ide.eclipse.feature.feature.group
+    #INSTALLIUS_SITE_NA=zipeditor.feature.group
   ;;
   "liclipse")
     REPOSITORIES=$LICLIPSE_REPO,\
