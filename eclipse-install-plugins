@@ -115,6 +115,7 @@ JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 JENERATE_REPO=http://maximeaudrain.github.io/update/
 EFXCLIPSE_REPO=https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/
+BASHEDITOR_REPO=https://dl.bintray.com/de-jcup/basheditor/
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
 PYDEV_REPO=http://www.pydev.org/updates
@@ -144,7 +145,8 @@ $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $JSON_REPO,\
 $JENERATE_REPO,\
-$EFXCLIPSE_REPO
+$EFXCLIPSE_REPO,\
+$BASHEDITOR_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
@@ -161,7 +163,8 @@ editorconfig-eclipse-feature.feature.group,\
 org.eclipse.fx.runtime.min.feature.feature.group,\
 org.jboss.tools.cdi.feature.feature.group,\
 jsonedit-feature.feature.group,\
-org.jenerate.feature.feature.group
+org.jenerate.feature.feature.group,\
+de.jcup.basheditor.feature.group
 
     if [ "$DISTRIB_ID" != "eclipseproject" ]; then
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
