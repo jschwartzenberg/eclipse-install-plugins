@@ -2,6 +2,7 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
+ECLIPSE_VERSION=2019-09
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -37,7 +38,7 @@ if [ "$DISTRIB_ID" = "rhel" ]; then
   fi
 fi
 
-if [ "$DISTRIB_ID" = "fedora" ] && ! [ -x "$(command -v eclipse)" ]; then
+if [ "$DISTRIB_ID" = "fedora" ] && [ ! "$VERSION_ID" = 30 ] && ! [ -x "$(command -v eclipse)" ]; then
   sudo dnf install eclipse eclipse-egit eclipse-anyedit eclipse-subclipse eclipse-findbugs eclipse-m2e-core eclipse-checkstyle eclipse-tm-terminal eclipse-eclemma eclipse-m2e-wtp eclipse-m2e-buildhelper eclipse-m2e-maven-dependency-plugin
 fi
 
@@ -67,14 +68,13 @@ if ! [ -x "$(command -v eclipse)" ]; then
         ;;
       esac
       MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
-      VERSION=2019-09
       RELEASE=R
       if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"${RELEASE}"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
       else
-        wget --output-document=- "$MIRROR"/"$VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$VERSION"-"${RELEASE}"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
       sed -i 's/-Xms.*/-Xms1g/' "${ECLIPSE_HOME}"/eclipse.ini
       sed -i 's/-Xmx.*/-Xmx4g/' "${ECLIPSE_HOME}"/eclipse.ini
@@ -88,7 +88,7 @@ if [ -z "$DISTRIB_ID" ]; then
 fi
 
 
-ECLIPSE_REPO=http://download.eclipse.org/releases/2018-09
+ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
@@ -158,7 +158,7 @@ org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
-org.eclipse.fx.ide.feature.feature.group,\
+org.eclipse.fx.runtime.min.feature.feature.group,\
 org.jboss.tools.cdi.feature.feature.group,\
 jsonedit-feature.feature.group,\
 org.jenerate.feature.feature.group
