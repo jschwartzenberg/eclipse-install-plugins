@@ -89,7 +89,7 @@ M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
 SONARLINT_REPO=http://eclipse.sonarlint.org/
 DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
 CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
-DBEAVER_REPO=http://dbeaver.jkiss.org/update/latest/
+DBEAVER_REPO=https://dbeaver.io/update/latest/
 JBOSS_REPO=http://download.jboss.org/jbosstools/photon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.6/oxygen/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
@@ -97,7 +97,7 @@ SPRINGIDE_REPO=http://springide.org/updatesite
 CSVEDIT_REPO=https://raw.githubusercontent.com/SegFaultError/CsvEdit/master/csvedit.update/
 DECOMPILER_REPO=https://ecd-plugin.github.io/update
 QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
-M2EJAXWS_REPO=http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/
+M2EJAXWS_REPO=https://coderplus.github.io/m2e-connector-for-jaxws-maven-plugin/
 NODECLIPSE_REPO=http://www.nodeclipse.org/updates/
 ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
 JENKINS_REPO=http://eclipse.cloudbees.com/
@@ -143,10 +143,7 @@ de.theit.m2e.axistools.feature.feature.group,\
 com.ifedorenko.m2e.mavendev.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
-org.jkiss.dbeaver.core.feature.feature.group,\
-org.jkiss.dbeaver.ext.generic.feature.feature.group,\
 org.jkiss.dbeaver.runtime.feature.feature.group,\
-org.jkiss.dbeaver.ext.oracle.feature.feature.group,\
 cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
