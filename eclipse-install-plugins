@@ -41,6 +41,10 @@ if [ "$DISTRIB_ID" = "fedora" ] && ! [ -x "$(command -v eclipse)" ]; then
   sudo dnf install eclipse eclipse-egit eclipse-anyedit eclipse-subclipse eclipse-findbugs eclipse-m2e-core eclipse-checkstyle eclipse-tm-terminal eclipse-eclemma eclipse-m2e-wtp eclipse-m2e-buildhelper eclipse-m2e-maven-dependency-plugin
 fi
 
+if [ "$DISTRIB_ID" = "Ubuntu" ] && ! dpkg -s libgtk-3-0 > /dev/null 2>&1; then
+  sudo apt install libgtk-3-0
+fi
+
 if ! [ -x "$(command -v eclipse)" ]; then
   if [ -z "$ECLIPSE_HOME" ]; then
     echo "Please set ECLIPSE_HOME to your Eclipse installation"
