@@ -2,7 +2,7 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
-ECLIPSE_VERSION=2019-09
+ECLIPSE_VERSION=2019-12
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -91,7 +91,7 @@ fi
 ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
-M2EMAVENDEV_REPO=http://ifedorenko.github.io/m2e-extras/
+M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
 SONARLINT_REPO=http://eclipse.sonarlint.org/
 DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
 CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
@@ -150,7 +150,6 @@ $BASHEDITOR_REPO
 
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
-com.ifedorenko.m2e.mavendev.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.runtime.feature.feature.group,\
@@ -170,7 +169,7 @@ de.jcup.basheditor.feature.group
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
     fi
 
-    INSTALLIUS_NA=com.cloudbees.eclipse.feature.group
+    INSTALLIUS_NA=com.cloudbees.eclipse.feature.group,com.ifedorenko.m2e.mavendev.feature.feature.group,
 
     if [ -x "$(command -v svn)" ]; then
       if [ "$DISTRIB_ID" != "fedora" ]; then
