@@ -2,7 +2,8 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
-ECLIPSE_VERSION=2019-12
+ECLIPSE_VERSION=2020-03
+RELEASE=R
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -59,25 +60,28 @@ if ! [ -x "$(command -v eclipse)" ]; then
       case $ECLIPSE_FLAVOUR in
         "java")
           ECLIPSE_FLAVOUR_DOWNLOAD=jee
+          INCUBATION=-incubation
         ;;
         "liclipse")
           ECLIPSE_FLAVOUR_DOWNLOAD=javascript
+          INCUBATION=-incubation
         ;;
         "cpp")
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
+          INCUBATION=-incubation
         ;;
       esac
       MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
-      RELEASE=R
       if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
       else
-        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
       sed -i 's/-Xms.*/-Xms1g/' "${ECLIPSE_HOME}"/eclipse.ini
       sed -i 's/-Xmx.*/-Xmx4g/' "${ECLIPSE_HOME}"/eclipse.ini
+      wget https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-eclipse-plugin_1.6.0.jar -O "${ECLIPSE_HOME}"/dropins/google-java-format-eclipse-plugin.jar
     fi
   fi
 fi
