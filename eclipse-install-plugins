@@ -82,6 +82,8 @@ if ! [ -x "$(command -v eclipse)" ]; then
       sed -i 's/-Xms.*/-Xms1g/' "${ECLIPSE_HOME}"/eclipse.ini
       sed -i 's/-Xmx.*/-Xmx4g/' "${ECLIPSE_HOME}"/eclipse.ini
       wget https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-eclipse-plugin_1.6.0.jar -O "${ECLIPSE_HOME}"/dropins/google-java-format-eclipse-plugin.jar
+      wget https://projectlombok.org/downloads/lombok.jar -O "${ECLIPSE_HOME}"/lombok.jar
+      echo '-javaagent:lombok.jar' >> "${ECLIPSE_HOME}"/eclipse.ini
     fi
   fi
 fi
