@@ -2,8 +2,10 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
-ECLIPSE_VERSION=2020-03
+ECLIPSE_VERSION=2020-06
 RELEASE=R
+#INCUBATION_FLAG=-incubation
+INCUBATION_FLAG=
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -60,15 +62,15 @@ if ! [ -x "$(command -v eclipse)" ]; then
       case $ECLIPSE_FLAVOUR in
         "java")
           ECLIPSE_FLAVOUR_DOWNLOAD=jee
-          INCUBATION=-incubation
+          INCUBATION=${INCUBATION_FLAG}
         ;;
         "liclipse")
           ECLIPSE_FLAVOUR_DOWNLOAD=javascript
-          INCUBATION=-incubation
+          INCUBATION=${INCUBATION_FLAG}
         ;;
         "cpp")
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
-          INCUBATION=-incubation
+          INCUBATION=${INCUBATION_FLAG}
         ;;
       esac
       MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
