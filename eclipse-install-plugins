@@ -255,6 +255,7 @@ case $ACTION in
   ;;
 esac
 
+pushd $ECLIPSE_HOME
 $COMMAND $ACTION
 
 # Lombok
