@@ -33,11 +33,17 @@ if [ "$OS" = "Windows_NT" ]; then
 fi
 
 if [ "$DISTRIB_ID" = "rhel" ]; then
-  if [ -e /opt/rh/rh-eclipse/enable ]; then
-    . scl_source enable rh-eclipse
+  MAJOR_VERSION=$(printf %.0f "$VERSION_ID")
+  if [ $MAJOR_VERSION -ge 8 ]; then
+    sudo dnf module enable eclipse
+    sudo yum install eclipse
   else
-    sudo yum install rh-eclipse
-    . scl_source enable rh-eclipse
+    if [ -e /opt/rh/rh-eclipse/enable ]; then
+        . scl_source enable rh-eclipse
+    else
+        sudo yum install rh-eclipse
+        . scl_source enable rh-eclipse
+    fi
   fi
 fi
 
@@ -192,7 +198,7 @@ de.jcup.basheditor.feature.group
       echo 'You do not have any svn binary in your path, so I am skipping Subclipse.'
     fi
 
-    if [ ! "$DISTRIB_ID" = "rhel" ] && [ ! "$DISTRIB_ID" = "fedora" ]; then
+    if { [ ! "$DISTRIB_ID" = "rhel" ] && [ ! "$MAJOR_VERSION" -gt 7 ]; } && [ ! "$DISTRIB_ID" = "fedora" ]; then
       # These are packaged on RHEL and Fedora
       INSTALLIUS=$INSTALLIUS,org.sonatype.m2e.buildhelper.feature.feature.group
     fi
@@ -255,7 +261,8 @@ case $ACTION in
   ;;
 esac
 
-pushd $ECLIPSE_HOME
+
+[ -n "$ECLIPSE_HOME" ] && pushd $ECLIPSE_HOME
 $COMMAND $ACTION
 
 # Lombok
