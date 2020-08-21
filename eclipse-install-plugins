@@ -101,8 +101,6 @@ if [ -z "$DISTRIB_ID" ]; then
   exit 1
 fi
 
-
-ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
@@ -140,7 +138,7 @@ CMAKEED_REPO=https://raw.githubusercontent.com/15knots/cmakeed/master/cmakeed-up
 
 case $ECLIPSE_FLAVOUR in
   "java")
-    REPOSITORIES=$ECLIPSE_REPO,\
+    REPOSITORIES=\
 $M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
@@ -162,12 +160,17 @@ $JENERATE_REPO,\
 $EFXCLIPSE_REPO,\
 $BASHEDITOR_REPO
 
+if [ ! "$DISTRIB_ID" = "rhel" ] || [ ! "$MAJOR_VERSION" -gt 7 ]; then
+  ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
+  REPOSITORIES=$ECLIPSE_REPO,$REPOSITORIES
+fi
+
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
 org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.runtime.feature.feature.group,\
-cucumber.eclipse.feature.feature.group,org.moreunit.feature.group,\
+org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
 qwickie.feature.feature.group,\
@@ -183,7 +186,7 @@ de.jcup.basheditor.feature.group
       INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
     fi
 
-    INSTALLIUS_NA=com.cloudbees.eclipse.feature.group,com.ifedorenko.m2e.mavendev.feature.feature.group,
+    INSTALLIUS_NA=com.cloudbees.eclipse.feature.group,com.ifedorenko.m2e.mavendev.feature.feature.group,cucumber.eclipse.feature.feature.group,\
 
     if [ -x "$(command -v svn)" ]; then
       if [ "$DISTRIB_ID" != "fedora" ]; then
@@ -217,6 +220,9 @@ com.ianbrandt.tools.m2e.mdp.feature.feature.group
       # included with the distribution and with Fedora, not packaged on RHEL
       REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
       INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
+      if [ "$MAJOR_VERSION" -gt 7 ]; then
+        INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group
+      fi
     fi
 
     # sapphire too old
