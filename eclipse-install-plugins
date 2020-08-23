@@ -90,10 +90,30 @@ if ! [ -x "$(command -v eclipse)" ]; then
       sed -i 's/-Xms.*/-Xms1g/' "${ECLIPSE_HOME}"/eclipse.ini
       sed -i 's/-Xmx.*/-Xmx4g/' "${ECLIPSE_HOME}"/eclipse.ini
       wget https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-eclipse-plugin_1.6.0.jar -O "${ECLIPSE_HOME}"/dropins/google-java-format-eclipse-plugin.jar
-      wget https://projectlombok.org/downloads/lombok.jar -O "${ECLIPSE_HOME}"/lombok.jar
-      echo '-javaagent:lombok.jar' >> "${ECLIPSE_HOME}"/eclipse.ini
     fi
   fi
+fi
+
+if [ $DISTRIB_ID = "eclipseproject" ]; then
+  wget https://projectlombok.org/downloads/lombok.jar -O "${ECLIPSE_HOME}"/lombok.jar
+  echo '-javaagent:lombok.jar' >> "${ECLIPSE_HOME}"/eclipse.ini
+else
+  mkdir -p ${HOME}/.eclipse
+  wget https://projectlombok.org/downloads/lombok.jar -O ${HOME}/.eclipse/lombok.jar
+  rm -r ${HOME}/.eclipse/eclipse.ini
+  if [ -e /usr/lib/eclipse/eclipse.ini ]; then
+    cp /usr/lib/eclipse/eclipse.ini ${HOME}/.eclipse/
+  else
+    echo "Please enhance the script for your system's eclipse.ini path"
+    exit 1
+  fi
+  sed -i 's/-Xms.*/-Xms1g/' ${HOME}/.eclipse/eclipse.ini
+  sed -i 's/-Xmx.*/-Xmx4g/' ${HOME}/.eclipse/eclipse.ini
+  echo -javaagent:${HOME}/.eclipse/lombok.jar >> ${HOME}/.eclipse/eclipse.ini
+  mkdir -p ${HOME}/bin
+  rm ${HOME}/bin/eclipse
+  echo `which eclipse` --launcher.ini ~/.eclipse/eclipse.ini '$@' > ${HOME}/bin/eclipse
+  chmod +x ${HOME}/bin/eclipse
 fi
 
 if [ -z "$DISTRIB_ID" ]; then
@@ -105,16 +125,13 @@ M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
 SONARLINT_REPO=http://eclipse.sonarlint.org/
-DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
 CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=https://dbeaver.io/update/latest/
-JBOSS_REPO=http://download.jboss.org/jbosstools/photon/stable/updates/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.6/oxygen/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
 SPRINGIDE_REPO=http://springide.org/updatesite
 CSVEDIT_REPO=https://raw.githubusercontent.com/SegFaultError/CsvEdit/master/csvedit.update/
 DECOMPILER_REPO=https://ecd-plugin.github.io/update
-QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
 M2EJAXWS_REPO=https://coderplus.github.io/m2e-connector-for-jaxws-maven-plugin/
 NODECLIPSE_REPO=http://www.nodeclipse.org/updates/
 ENCODING_REPO=https://cypher256.github.io/eclipse-encoding-plugin/
@@ -126,7 +143,9 @@ ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
 JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 JENERATE_REPO=http://maximeaudrain.github.io/update/
-EFXCLIPSE_REPO=https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/
+# e(fx)eclipse requires Xtext
+XTEXT_REPO=http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
+EFXCLIPSE_REPO=http://download.eclipse.org/efxclipse/runtime-nightly/site,http://download.eclipse.org/efxclipse/updates-nightly/site
 BASHEDITOR_REPO=https://dl.bintray.com/de-jcup/basheditor/
 
 LICLIPSE_REPO=http://www.liclipse.com/text/updates
@@ -143,20 +162,18 @@ $M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
 $SONARLINT_REPO,\
-$DIRECTORYSTUDIO_REPO,\
 $CUCUMBER_REPO,\
 $M2EMAVENDEV_REPO,\
 $DBEAVER_REPO,\
-$JBOSS_REPO,\
 $ORACLE_REPO,\
 $MOREUNIT_REPO,\
 $CSVEDIT_REPO,\
 $DECOMPILER_REPO,\
-$QWICKIE_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $JSON_REPO,\
 $JENERATE_REPO,\
+$XTEXT_REPO,\
 $EFXCLIPSE_REPO,\
 $BASHEDITOR_REPO
 
@@ -168,23 +185,15 @@ fi
     INSTALLIUS=\
 de.theit.m2e.axistools.feature.feature.group,\
 org.sonarlint.eclipse.feature.feature.group,\
-org.apache.directory.studio.ldapbrowser.feature.feature.group,\
 org.jkiss.dbeaver.runtime.feature.feature.group,\
 org.moreunit.feature.group,\
 org.fhsolution.eclipse.feature.csvedit.feature.group,\
 org.sf.feeling.decompiler.feature.group,\
-qwickie.feature.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
-org.eclipse.fx.runtime.min.feature.feature.group,\
-org.jboss.tools.cdi.feature.feature.group,\
 jsonedit-feature.feature.group,\
 org.jenerate.feature.feature.group,\
 de.jcup.basheditor.feature.group
-
-    if [ "$DISTRIB_ID" != "eclipseproject" ]; then
-      INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
-    fi
 
     INSTALLIUS_NA=com.cloudbees.eclipse.feature.group,com.ifedorenko.m2e.mavendev.feature.feature.group,cucumber.eclipse.feature.feature.group,\
 
@@ -220,9 +229,28 @@ com.ianbrandt.tools.m2e.mdp.feature.feature.group
       # included with the distribution and with Fedora, not packaged on RHEL
       REPOSITORIES=$REPOSITORIES,$ECLEMMA_REPO
       INSTALLIUS=$INSTALLIUS,org.eclipse.eclemma.feature.feature.group
-      if [ "$MAJOR_VERSION" -gt 7 ]; then
-        INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group
+#       if [ "$MAJOR_VERSION" -gt 7 ]; then
+#         INSTALLIUS=$INSTALLIUS,org.eclipse.m2e.feature.feature.group
+#       fi
+    fi
+
+    # The version in RHEL8 is too old for this, TODO: implement version detection.
+    if [ ! "$DISTRIB_ID" = "rhel" ] || [ ! "$MAJOR_VERSION" -gt 7 ]; then
+      # Hibernate plug-in comea from the JBoss repo
+      JBOSS_REPO=http://download.jboss.org/jbosstools/photon/stable/updates/
+      REPOSITORIES=$REPOSITORIES,$JBOSS_REPO
+      INSTALLIUS=$INSTALLIUS,org.jboss.tools.cdi.feature.feature.group,org.eclipse.fx.ide.feature.feature.group
+      if [ "$DISTRIB_ID" != "eclipseproject" ]; then
+        INSTALLIUS=$INSTALLIUS,org.hibernate.eclipse.feature.feature.group
       fi
+      DIRECTORYSTUDIO_REPO=http://directory.apache.org/studio/update/
+      REPOSITORIES=$REPOSITORIES,$DIRECTORYSTUDIO_REPO
+      # TODO missing javax.xml.stream [1.0.0,2.0.0)
+      INSTALLIUS=$INSTALLIUS,org.apache.directory.studio.ldapbrowser.feature.feature.group
+      QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
+      REPOSITORIES=$REPOSITORIES,$QWICKIE_REP
+      # TODO missing org.eclipse.wst.sse.core 0.0.0
+      INSTALLIUS=$INSTALLIUS,qwickie.feature.feature.group
     fi
 
     # sapphire too old
@@ -255,6 +283,10 @@ de.marw.cdt.cmake.feature.group,\
 com.cthing.cmakeed.feature.feature.group
   ;;
 esac
+
+if [ -e ${HOME}/bin/eclipse ]; then
+  PATH=${HOME}/bin:${PATH}
+fi
 
 COMMAND="eclipse -clean -purgeHistory -application org.eclipse.equinox.p2.director -noSplash -repository $REPOSITORIES"
 
