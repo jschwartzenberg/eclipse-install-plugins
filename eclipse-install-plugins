@@ -94,26 +94,28 @@ if ! [ -x "$(command -v eclipse)" ]; then
   fi
 fi
 
-if [ $DISTRIB_ID = "eclipseproject" ]; then
-  wget https://projectlombok.org/downloads/lombok.jar -O "${ECLIPSE_HOME}"/lombok.jar
-  echo '-javaagent:lombok.jar' >> "${ECLIPSE_HOME}"/eclipse.ini
-else
-  mkdir -p ${HOME}/.eclipse
-  wget https://projectlombok.org/downloads/lombok.jar -O ${HOME}/.eclipse/lombok.jar
-  rm -r ${HOME}/.eclipse/eclipse.ini
-  if [ -e /usr/lib/eclipse/eclipse.ini ]; then
-    cp /usr/lib/eclipse/eclipse.ini ${HOME}/.eclipse/
+if [ $ECLIPSE_FLAVOUR = "java" ]; then
+  if [ $DISTRIB_ID = "eclipseproject" ]; then
+    wget https://projectlombok.org/downloads/lombok.jar -O "${ECLIPSE_HOME}"/lombok.jar
+    echo '-javaagent:lombok.jar' >> "${ECLIPSE_HOME}"/eclipse.ini
   else
-    echo "Please enhance the script for your system's eclipse.ini path"
-    exit 1
+    mkdir -p ${HOME}/.eclipse
+    wget https://projectlombok.org/downloads/lombok.jar -O ${HOME}/.eclipse/lombok.jar
+    rm -r ${HOME}/.eclipse/eclipse.ini
+    if [ -e /usr/lib/eclipse/eclipse.ini ]; then
+      cp /usr/lib/eclipse/eclipse.ini ${HOME}/.eclipse/
+    else
+      echo "Please enhance the script for your system's eclipse.ini path"
+      exit 1
+    fi
+    sed -i 's/-Xms.*/-Xms1g/' ${HOME}/.eclipse/eclipse.ini
+    sed -i 's/-Xmx.*/-Xmx4g/' ${HOME}/.eclipse/eclipse.ini
+    echo -javaagent:${HOME}/.eclipse/lombok.jar >> ${HOME}/.eclipse/eclipse.ini
+    mkdir -p ${HOME}/bin
+    rm ${HOME}/bin/eclipse
+    echo `which eclipse` --launcher.ini ~/.eclipse/eclipse.ini '$@' > ${HOME}/bin/eclipse
+    chmod +x ${HOME}/bin/eclipse
   fi
-  sed -i 's/-Xms.*/-Xms1g/' ${HOME}/.eclipse/eclipse.ini
-  sed -i 's/-Xmx.*/-Xmx4g/' ${HOME}/.eclipse/eclipse.ini
-  echo -javaagent:${HOME}/.eclipse/lombok.jar >> ${HOME}/.eclipse/eclipse.ini
-  mkdir -p ${HOME}/bin
-  rm ${HOME}/bin/eclipse
-  echo `which eclipse` --launcher.ini ~/.eclipse/eclipse.ini '$@' > ${HOME}/bin/eclipse
-  chmod +x ${HOME}/bin/eclipse
 fi
 
 if [ -z "$DISTRIB_ID" ]; then
