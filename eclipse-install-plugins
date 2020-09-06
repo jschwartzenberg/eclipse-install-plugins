@@ -250,7 +250,7 @@ com.ianbrandt.tools.m2e.mdp.feature.feature.group
       # TODO missing javax.xml.stream [1.0.0,2.0.0)
       INSTALLIUS=$INSTALLIUS,org.apache.directory.studio.ldapbrowser.feature.feature.group
       QWICKIE_REPO=http://raw.githubusercontent.com/count-negative/qwickie/master/qwickie.updatesite/site.xml
-      REPOSITORIES=$REPOSITORIES,$QWICKIE_REP
+      REPOSITORIES=$REPOSITORIES,$QWICKIE_REPO
       # TODO missing org.eclipse.wst.sse.core 0.0.0
       INSTALLIUS=$INSTALLIUS,qwickie.feature.feature.group
     fi
