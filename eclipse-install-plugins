@@ -125,7 +125,7 @@ fi
 
 M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
-M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
+#M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
 SONARLINT_REPO=http://eclipse.sonarlint.org/
 CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=https://dbeaver.io/update/latest/
@@ -146,7 +146,6 @@ JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 JENERATE_REPO=http://maximeaudrain.github.io/update/
 # e(fx)eclipse requires Xtext
-XTEXT_REPO=http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/
 EFXCLIPSE_REPO=http://download.eclipse.org/efxclipse/runtime-nightly/site,http://download.eclipse.org/efxclipse/updates-nightly/site
 BASHEDITOR_REPO=https://dl.bintray.com/de-jcup/basheditor/
 
@@ -165,7 +164,6 @@ $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
 $SONARLINT_REPO,\
 $CUCUMBER_REPO,\
-$M2EMAVENDEV_REPO,\
 $DBEAVER_REPO,\
 $ORACLE_REPO,\
 $MOREUNIT_REPO,\
@@ -175,9 +173,10 @@ $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $JSON_REPO,\
 $JENERATE_REPO,\
-$XTEXT_REPO,\
 $EFXCLIPSE_REPO,\
 $BASHEDITOR_REPO
+
+#$M2EMAVENDEV_REPO,\
 
 if [ ! "$DISTRIB_ID" = "rhel" ] || [ ! "$MAJOR_VERSION" -gt 7 ]; then
   ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
