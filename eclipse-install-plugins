@@ -2,7 +2,7 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
-ECLIPSE_VERSION=2020-06
+ECLIPSE_VERSION=2020-12
 RELEASE=R
 #INCUBATION_FLAG=-incubation
 INCUBATION_FLAG=
@@ -127,7 +127,7 @@ M2EAXISTOOLS_REPO=http://theit.github.com/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 #M2EMAVENDEV_REPO=http://repo1.maven.org/maven2/.m2e/connectors/mavendev/ # broken
 SONARLINT_REPO=http://eclipse.sonarlint.org/
-CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
+#CUCUMBER_REPO=http://cucumber.io/cucumber-eclipse/update-site
 DBEAVER_REPO=https://dbeaver.io/update/latest/
 ORACLE_REPO=http://download.oracle.com/otn_software/oepe/12.2.1.6/oxygen/repository
 MOREUNIT_REPO=http://moreunit.sourceforge.net/update-site/
@@ -141,7 +141,7 @@ JENKINS_REPO=http://eclipse.cloudbees.com/
 ECLEMMA_REPO=http://update.eclemma.org/
 EDITORCONFIG_REPO=https://editorconfig-eclipse.github.io/repository
 M2E_DEPENCENDY_PLUGIN_REPO=http://ianbrandt.github.io/m2e-maven-dependency-plugin/
-ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
+#ANYEDIT_REPO=http://andrei.gmxhome.de/eclipse/
 JSON_REPO=http://boothen.github.io/Json-Eclipse-Plugin/
 CHECKSTYLE_REPO=http://eclipse-cs.sf.net/update
 JENERATE_REPO=http://maximeaudrain.github.io/update/
@@ -163,7 +163,6 @@ $M2EAXISTOOLS_REPO,\
 $M2EEXTRAS_REPO,\
 $M2EJAXWS_REPO,\
 $SONARLINT_REPO,\
-$CUCUMBER_REPO,\
 $DBEAVER_REPO,\
 $ORACLE_REPO,\
 $MOREUNIT_REPO,\
@@ -177,6 +176,7 @@ $EFXCLIPSE_REPO,\
 $BASHEDITOR_REPO
 
 #$M2EMAVENDEV_REPO,\
+#$CUCUMBER_REPO,\
 
 if [ ! "$DISTRIB_ID" = "rhel" ] || [ ! "$MAJOR_VERSION" -gt 7 ]; then
   ECLIPSE_REPO=http://download.eclipse.org/releases/"$ECLIPSE_VERSION"
@@ -218,12 +218,14 @@ de.jcup.basheditor.feature.group
 
     if [ ! "$DISTRIB_ID" = "fedora" ]; then
       # These are packaged on Fedora
-      REPOSITORIES=$REPOSITORIES,$ANYEDIT_REPO,\
+      REPOSITORIES=$REPOSITORIES,\
 $CHECKSTYLE_REPO,\
 $M2E_DEPENCENDY_PLUGIN_REPO
-      INSTALLIUS=$INSTALLIUS,AnyEditTools.feature.group,\
+      INSTALLIUS=$INSTALLIUS,\
 net.sf.eclipsecs.feature.group,\
 com.ianbrandt.tools.m2e.mdp.feature.feature.group
+
+#$ANYEDIT_REPO,,AnyEditTools.feature.group
     fi
 
     if [ "$DISTRIB_ID" = "rhel" ]; then
