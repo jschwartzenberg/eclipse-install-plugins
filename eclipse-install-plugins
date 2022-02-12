@@ -6,6 +6,7 @@ ECLIPSE_VERSION=2021-09
 RELEASE=R
 #INCUBATION_FLAG=-incubation
 INCUBATION_FLAG=
+MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -79,7 +80,6 @@ if ! [ -x "$(command -v eclipse)" ]; then
           INCUBATION=${INCUBATION_FLAG}
         ;;
       esac
-      MIRROR=http://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
       if [ `uname -o` = "Cygwin" ]; then
         wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
