@@ -146,6 +146,7 @@ JENERATE_REPO=https://maximeaudrain.github.io/update/
 # e(fx)eclipse requires Xtext
 EFXCLIPSE_REPO=https://download.eclipse.org/efxclipse/runtime-nightly/site,http://download.eclipse.org/efxclipse/updates-nightly/site
 BASHEDITOR_REPO=https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site
+ASCIIDOCTOREDITOR_REPO=https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/
 
 LICLIPSE_REPO=https://www.liclipse.com/text/updates
 PYDEV_REPO=https://www.pydev.org/updates
@@ -174,7 +175,8 @@ $EDITORCONFIG_REPO,\
 $JSON_REPO,\
 $JENERATE_REPO,\
 $EFXCLIPSE_REPO,\
-$BASHEDITOR_REPO
+$BASHEDITOR_REPO.\
+$ASCIIDOCTOREDITOR_REPO
 
 #$M2EMAVENDEV_REPO,\
 #$CUCUMBER_REPO,\
@@ -195,7 +197,8 @@ eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 jsonedit-feature.feature.group,\
 org.jenerate.feature.feature.group,\
-de.jcup.basheditor.feature.group
+de.jcup.basheditor.feature.group,\
+de.jcup.asciidoctoreditor.feature.group
 
     INSTALLIUS_NA=com.ifedorenko.m2e.mavendev.feature.feature.group,cucumber.eclipse.feature.feature.group
 
