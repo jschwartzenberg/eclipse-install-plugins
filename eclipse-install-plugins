@@ -2,11 +2,12 @@
 
 ECLIPSE_FLAVOUR=$1
 ACTION=$2
-ECLIPSE_VERSION=2023-03
+ECLIPSE_VERSION=2025-06
 RELEASE=R
 #INCUBATION_FLAG=-incubation
 INCUBATION_FLAG=
-MIRROR=https://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release
+MIRROR=https://ftp.snt.utwente.nl/pub/software/eclipse
+
 
 if [ -z "$ECLIPSE_FLAVOUR" ]; then
   echo You need to specify which Eclipse flavour you want.
@@ -70,26 +71,35 @@ if ! [ -x "$(command -v eclipse)" ]; then
         "java")
           ECLIPSE_FLAVOUR_DOWNLOAD=jee
           INCUBATION=${INCUBATION_FLAG}
+          FILE_PATH_PREFIX="${MIRROR}"/technology/epp/downloads/release/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}
         ;;
-        "liclipse")
-          ECLIPSE_FLAVOUR_DOWNLOAD=javascript
+        "python")
           INCUBATION=${INCUBATION_FLAG}
+          FILE_PATH_PREFIX="${MIRROR}"/eclipse/downloads/drops4/R-4.36-202505281830/eclipse-platform-4.36
         ;;
         "cpp")
           ECLIPSE_FLAVOUR_DOWNLOAD=cpp
           INCUBATION=${INCUBATION_FLAG}
+          FILE_PATH_PREFIX="${MIRROR}"/technology/epp/downloads/release/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}
         ;;
       esac
-      if [ `uname -o` = "Cygwin" ]; then
-        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}-win32-x86_64.zip|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
+      if [ $(uname -o) = "Cygwin" ]
+      then
+        wget --output-document=- "${FILE_PATH_PREFIX}-win32-x86_64.zip"|bsdtar -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
         find "$ECLIPSE_HOME" -name "*.dll" -exec chmod +x {} \;
         find "$ECLIPSE_HOME" -name "*.exe" -exec chmod +x {} \;
+      elif [ $(uname -o) = "Msys" ]
+      then
+        curl "${FILE_PATH_PREFIX}-win32-x86_64.zip"|/c/windows/System32/tar.exe -xvf- --directory "$ECLIPSE_HOME" --strip-components=1
       else
-        wget --output-document=- "$MIRROR"/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}-linux-gtk-x86_64.tar.gz|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
+        wget --output-document=- "${FILE_PATH_PREFIX}-linux-gtk-x86_64.tar.gz"|tar xvzf - --directory "$ECLIPSE_HOME" --strip-components=1
       fi
       sed -i 's/-Xms.*/-Xms1g/' "${ECLIPSE_HOME}"/eclipse.ini
       sed -i 's/-Xmx.*/-Xmx4g/' "${ECLIPSE_HOME}"/eclipse.ini
-      wget https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-eclipse-plugin_1.6.0.jar -O "${ECLIPSE_HOME}"/dropins/google-java-format-eclipse-plugin.jar
+      if [ $ECLIPSE_FLAVOUR = "java" ]
+      then
+        wget https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-eclipse-plugin_1.6.0.jar -O "${ECLIPSE_HOME}"/dropins/google-java-format-eclipse-plugin.jar
+      fi
     fi
   fi
 fi
@@ -123,6 +133,8 @@ if [ -z "$DISTRIB_ID" ]; then
   exit 1
 fi
 
+ECLIPSE_REPO=https://download.eclipse.org/releases/"$ECLIPSE_VERSION"
+
 M2EAXISTOOLS_REPO=https://theit.github.io/m2e-lifecycle-axistools
 M2EEXTRAS_REPO=https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.15.0/N/0.15.0.201206251206/
 M2EMAVENDEV_REPO=https://repo1.maven.org/maven2/.m2e/connectors/mavendev/0.5.0/N/LATEST/
@@ -148,7 +160,6 @@ EFXCLIPSE_REPO=https://download.eclipse.org/efxclipse/runtime-nightly/site,http:
 BASHEDITOR_REPO=https://de-jcup.github.io/update-site-eclipse-bash-editor/update-site
 ASCIIDOCTOREDITOR_REPO=https://de-jcup.github.io/update-site-eclipse-asciidoctor-editor/update-site/
 
-LICLIPSE_REPO=https://www.liclipse.com/text/updates
 PYDEV_REPO=https://www.pydev.org/updates
 
 DLTK_REPO=https://download.eclipse.org/technology/dltk/updates-dev/latest/
@@ -182,7 +193,6 @@ $ASCIIDOCTOREDITOR_REPO
 #$CUCUMBER_REPO,\
 
 if [ ! "$DISTRIB_ID" = "rhel" ] || [ ! "$MAJOR_VERSION" -gt 7 ]; then
-  ECLIPSE_REPO=https://download.eclipse.org/releases/"$ECLIPSE_VERSION"
   REPOSITORIES=$ECLIPSE_REPO,$REPOSITORIES
 fi
 
@@ -264,26 +274,28 @@ AnyEditTools.feature.group
     #INSTALLIUS_DEPS_NA=oracle.eclipse.tools.database.feature.group
     #INSTALLIUS_SITE_NA=zipeditor.feature.group
   ;;
-  "liclipse")
-    REPOSITORIES=$LICLIPSE_REPO,\
+  "python")
+    REPOSITORIES=\
+"${ECLIPSE_REPO}",\
 $PYDEV_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
 $ANYEDIT_REPO
-    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
+    INSTALLIUS=\
 org.python.pydev.feature.feature.group,\
+org.eclipse.egit.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
 AnyEditTools.feature.group
   ;;
   "cpp")
-    REPOSITORIES=$LICLIPSE_REPO,\
+    REPOSITORIES=\
 $DLTK_REPO,\
 $NODECLIPSE_REPO,\
 $ENCODING_REPO,\
 $CMAKE4E_REPO,\
 $CMAKEED_REPO
-    INSTALLIUS=org.brainwy.liclipsetext.feature.feature.group,\
+    INSTALLIUS=\
 eclipse.encoding.plugin.feature.feature.group,\
 de.marw.cdt.cmake.feature.group,\
 com.cthing.cmakeed.feature.feature.group
