@@ -166,6 +166,9 @@ DLTK_REPO=https://download.eclipse.org/technology/dltk/updates-dev/latest/
 CMAKE4E_REPO=https://raw.githubusercontent.com/15knots/cmake4eclipse/master/releng/comp-update/
 CMAKEED_REPO=https://raw.githubusercontent.com/15knots/cmakeed/master/cmakeed-update/
 
+JENKINSEDITOR_REPO=https://de-jcup.github.io/update-site-eclipse-jenkins-editor/update-site/
+JENKINSEDITOR_FEATURE=de.jcup.jenkinseditor.feature.feature.group
+
 # https://github.com/spring-projects/sts4/wiki/Installation
 #SPRINGIDE_REPO=https://download.springsource.com/release/TOOLS/sts4/update/e4.23/
 
@@ -187,7 +190,8 @@ $JSON_REPO,\
 $JENERATE_REPO,\
 $EFXCLIPSE_REPO,\
 $BASHEDITOR_REPO.\
-$ASCIIDOCTOREDITOR_REPO
+$ASCIIDOCTOREDITOR_REPO,\
+${JENKINSEDITOR_REPO}
 
 #$M2EMAVENDEV_REPO,\
 #$CUCUMBER_REPO,\
@@ -208,7 +212,8 @@ editorconfig-eclipse-feature.feature.group,\
 jsonedit-feature.feature.group,\
 org.jenerate.feature.feature.group,\
 de.jcup.basheditor.feature.group,\
-de.jcup.asciidoctoreditor.feature.group
+de.jcup.asciidoctoreditor.feature.group,\
+"${JENKINSEDITOR_FEATURE}"
 
     INSTALLIUS_NA=com.ifedorenko.m2e.mavendev.feature.feature.group,cucumber.eclipse.feature.feature.group
 
@@ -280,13 +285,16 @@ AnyEditTools.feature.group
 $PYDEV_REPO,\
 $ENCODING_REPO,\
 $EDITORCONFIG_REPO,\
-$ANYEDIT_REPO
+$ANYEDIT_REPO,\
+${JENKINSEDITOR_REPO}
+
     INSTALLIUS=\
 org.python.pydev.feature.feature.group,\
 org.eclipse.egit.feature.group,\
 eclipse.encoding.plugin.feature.feature.group,\
 editorconfig-eclipse-feature.feature.group,\
-AnyEditTools.feature.group
+AnyEditTools.feature.group,\
+"${JENKINSEDITOR_FEATURE}"
   ;;
   "cpp")
     REPOSITORIES=\
@@ -294,11 +302,14 @@ $DLTK_REPO,\
 $NODECLIPSE_REPO,\
 $ENCODING_REPO,\
 $CMAKE4E_REPO,\
-$CMAKEED_REPO
+$CMAKEED_REPO,\
+${JENKINSEDITOR_REPO}
+
     INSTALLIUS=\
 eclipse.encoding.plugin.feature.feature.group,\
 de.marw.cdt.cmake.feature.group,\
-com.cthing.cmakeed.feature.feature.group
+com.cthing.cmakeed.feature.feature.group,\
+"${JENKINSEDITOR_FEATURE}"
   ;;
 esac
 
