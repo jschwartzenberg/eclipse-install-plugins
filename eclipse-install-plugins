@@ -82,6 +82,9 @@ if ! [ -x "$(command -v eclipse)" ]; then
           INCUBATION=${INCUBATION_FLAG}
           FILE_PATH_PREFIX="${MIRROR}"/technology/epp/downloads/release/"$ECLIPSE_VERSION"/"$RELEASE"/eclipse-"$ECLIPSE_FLAVOUR_DOWNLOAD"-"$ECLIPSE_VERSION"-"${RELEASE}"${INCUBATION}
         ;;
+        "web")
+          FILE_PATH_PREFIX="${MIRROR}"/eclipse/downloads/drops4/R-4.36-202505281830/eclipse-platform-4.36
+        ;;
       esac
       if [ $(uname -o) = "Cygwin" ]
       then
@@ -311,6 +314,23 @@ de.marw.cdt.cmake.feature.group,\
 com.cthing.cmakeed.feature.feature.group,\
 "${JENKINSEDITOR_FEATURE}"
   ;;
+"web")
+    REPOSITORIES=\
+"${ECLIPSE_REPO}",\
+$ENCODING_REPO,\
+$EDITORCONFIG_REPO,\
+$ANYEDIT_REPO,\
+
+    INSTALLIUS=\
+org.eclipse.wst.web_ui.feature.feature.group,\
+org.eclipse.wst.web_js_support.feature.feature.group,\
+org.eclipse.wst.jsdt.feature.feature.group,\
+org.eclipse.wst.jsdt.chromium.debug.feature.feature.group,\
+org.eclipse.wildwebdeveloper.feature.feature.group,\
+eclipse.encoding.plugin.feature.feature.group,\
+AnyEditTools.feature.group,\
+editorconfig-eclipse-feature.feature.group
+;;
 esac
 
 if [ -e ${HOME}/bin/eclipse ]; then
